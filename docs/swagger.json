@@ -1,0 +1,117 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "HTML to RSS Bridge",
+        "title": "BrRSS",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/v1/feed/{format}": {
+            "get": {
+                "description": "Generates RSS/Atom feed",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/atom+xml",
+                    "application/feed+json",
+                    "application/rss+xml"
+                ],
+                "tags": [
+                    "feeds fetch"
+                ],
+                "parameters": [
+                    {
+                        "enum": [
+                            "atom",
+                            "json",
+                            "rss"
+                        ],
+                        "type": "string",
+                        "description": "Output feed format",
+                        "name": "format",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Source URL",
+                        "name": "url",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Article selector",
+                        "name": "item",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "API Key",
+                        "name": "api-key",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Feed title selector",
+                        "name": "feed-title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Feed description selector",
+                        "name": "feed-desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Article time selector",
+                        "name": "item-time",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Article description selector",
+                        "name": "item-desc",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Article link selector",
+                        "name": "item-link",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "format": "string",
+                        "description": "Article title selector",
+                        "name": "item-title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "description": "Outgoing request headers",
+                        "name": "req-headers",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    }
+}

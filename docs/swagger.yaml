@@ -1,0 +1,83 @@
+info:
+  contact: {}
+  description: HTML to RSS Bridge
+  title: BrRSS
+  version: "1.0"
+paths:
+  /v1/feed/{format}:
+    get:
+      consumes:
+      - application/json
+      description: Generates RSS/Atom feed
+      parameters:
+      - description: Output feed format
+        enum:
+        - atom
+        - json
+        - rss
+        in: path
+        name: format
+        required: true
+        type: string
+      - description: Source URL
+        format: string
+        in: query
+        name: url
+        required: true
+        type: string
+      - description: Article selector
+        format: string
+        in: query
+        name: item
+        required: true
+        type: string
+      - description: API Key
+        format: string
+        in: query
+        name: api-key
+        type: string
+      - description: Feed title selector
+        format: string
+        in: query
+        name: feed-title
+        type: string
+      - description: Feed description selector
+        format: string
+        in: query
+        name: feed-desc
+        type: string
+      - description: Article time selector
+        format: string
+        in: query
+        name: item-time
+        type: string
+      - description: Article description selector
+        format: string
+        in: query
+        name: item-desc
+        type: string
+      - description: Article link selector
+        format: string
+        in: query
+        name: item-link
+        type: string
+      - description: Article title selector
+        format: string
+        in: query
+        name: item-title
+        type: string
+      - collectionFormat: multi
+        description: Outgoing request headers
+        in: query
+        items:
+          type: string
+        name: req-headers
+        type: array
+      produces:
+      - application/atom+xml
+      - application/feed+json
+      - application/rss+xml
+      responses: {}
+      tags:
+      - feeds fetch
+swagger: "2.0"
