@@ -33,7 +33,7 @@ func V1GetFeed(ctx echo.Context) error {
 	feedURL, err := url.Parse(ctx.QueryParam("url"))
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, "invalid feed url")
+		return echo.NewHTTPError(http.StatusBadRequest, "invalid feed url - "+err.Error())
 	}
 
 	res, err := util.Fetch("GET", feedURL.String(), &util.FetchOptions{
@@ -41,11 +41,11 @@ func V1GetFeed(ctx echo.Context) error {
 	})
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, "http request failure")
+		return echo.NewHTTPError(http.StatusBadRequest, "http request failure - "+err.Error())
 	}
 
 	if res.StatusCode >= 400 {
-		return echo.NewHTTPError(res.StatusCode, "remote server error")
+		return echo.NewHTTPError(res.StatusCode, "remote server error - "+err.Error())
 	}
 
 	feed, err := brrss.HTMLToFeed(res.Body, feedFormat, brrss.HTMLToFeedOptions{
@@ -60,7 +60,7 @@ func V1GetFeed(ctx echo.Context) error {
 	})
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "feed generation failure")
+		return echo.NewHTTPError(http.StatusInternalServerError, "feed generation failure - "+err.Error())
 	}
 
 	return ctx.String(http.StatusOK, feed)

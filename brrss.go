@@ -87,8 +87,13 @@ func HTMLToFeed(body io.Reader, feedFormat FeedFormat, options HTMLToFeedOptions
 		})
 	})
 
+	if len(items) <= 0 {
+		return "", errors.New("no articles found")
+	}
+
 	feed := &feeds.Feed{
 		Title:       TrySelectText(doc.Selection, FeedTitleSelKind, options.SelFeedTitle, stOptions),
+		Link:        &feeds.Link{Href: options.BaseURL.String()},
 		Description: TrySelectText(doc.Selection, FeedDescSelKind, options.SelFeedDesc, stOptions),
 		Created:     now,
 		Items:       items,
@@ -162,6 +167,10 @@ func SelectText(item *goquery.Selection, selKind SelKind, selCustom string, opti
 
 			default:
 				return "", errors.New("unsupported action or invalid arguments")
+			}
+
+			if result == "" {
+				break
 			}
 		}
 
