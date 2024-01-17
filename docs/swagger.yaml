@@ -31,11 +31,6 @@ paths:
         name: item
         required: true
         type: string
-      - description: API Key
-        format: string
-        in: query
-        name: api-key
-        type: string
       - description: Feed title selector
         format: string
         in: query
@@ -78,6 +73,16 @@ paths:
       - application/feed+json
       - application/rss+xml
       responses: {}
+      security:
+      - ApiKeyAuth: []
+        BasicAuth: []
       tags:
       - feeds fetch
+securityDefinitions:
+  ApiKeyAuth:
+    in: query
+    name: api-key
+    type: apiKey
+  BasicAuth:
+    type: basic
 swagger: "2.0"

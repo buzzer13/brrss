@@ -1,7 +1,9 @@
 packages:
   - name: brrss
     environment:
-      API_KEY: "${API_KEY}"
+#      API_KEY: "${API_KEY}"
+      API_USERNAME: "${API_USERNAME}"
+      API_PASSWORD: "${API_PASSWORD}"
     functions:
       - name: main
         main: Main

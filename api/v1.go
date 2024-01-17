@@ -19,7 +19,6 @@ import (
 //	@Param			format		path	brrss.FeedFormat	true	"Output feed format"
 //	@Param			url			query	string				true	"Source URL"					format(string)
 //	@Param			item		query	string				true	"Article selector"				format(string)
-//	@Param			api-key		query	string				false	"API Key"						format(string)
 //	@Param			feed-title	query	string				false	"Feed title selector"			format(string)
 //	@Param			feed-desc	query	string				false	"Feed description selector"		format(string)
 //	@Param			item-time	query	string				false	"Article time selector"			format(string)
@@ -28,6 +27,7 @@ import (
 //	@Param			item-title	query	string				false	"Article title selector"		format(string)
 //	@Param			req-headers	query	[]string			false	"Outgoing request headers"		collectionFormat(multi)
 //	@Router			/v1/feed/{format} [get]
+//	@Security		ApiKeyAuth || BasicAuth
 func V1GetFeed(ctx echo.Context) error {
 	feedFormat := brrss.FeedFormat(ctx.Param("format"))
 	feedURL, err := url.Parse(ctx.QueryParam("url"))

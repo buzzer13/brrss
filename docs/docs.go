@@ -17,6 +17,12 @@ const docTemplate = `{
     "paths": {
         "/v1/feed/{format}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": [],
+                        "BasicAuth": []
+                    }
+                ],
                 "description": "Generates RSS/Atom feed",
                 "consumes": [
                     "application/json"
@@ -57,13 +63,6 @@ const docTemplate = `{
                         "name": "item",
                         "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "format": "string",
-                        "description": "API Key",
-                        "name": "api-key",
-                        "in": "query"
                     },
                     {
                         "type": "string",
@@ -120,6 +119,16 @@ const docTemplate = `{
                 ],
                 "responses": {}
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "api-key",
+            "in": "query"
+        },
+        "BasicAuth": {
+            "type": "basic"
         }
     }
 }`

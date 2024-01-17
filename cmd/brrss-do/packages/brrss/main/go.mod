@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/labstack/echo/v4 v4.11.4
-	gitlab.com/buzzer13/brrss v1.0.0
+	gitlab.com/buzzer13/brrss v1.0.1
 	gitlab.com/buzzer13/gosls v1.0.0
 )
 
