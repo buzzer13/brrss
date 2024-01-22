@@ -4,6 +4,7 @@ import (
 	"crypto/subtle"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"golang.org/x/crypto/bcrypt"
 	"os"
 )
 
@@ -30,7 +31,7 @@ func EchoAPI() *echo.Echo {
 				return !apiKeySet
 			},
 			Validator: func(key string, ctx echo.Context) (bool, error) {
-				return key == apiKey, nil
+				return isValidKey([]byte(apiKey), []byte(key)), nil
 			},
 		}),
 		middleware.BasicAuthWithConfig(middleware.BasicAuthConfig{
@@ -38,12 +39,10 @@ func EchoAPI() *echo.Echo {
 				return !apiUserSet || !apiPassSet
 			},
 			Validator: func(username, password string, ctx echo.Context) (bool, error) {
-				if subtle.ConstantTimeCompare([]byte(username), []byte(apiUsername)) == 1 &&
-					subtle.ConstantTimeCompare([]byte(password), []byte(apiPassword)) == 1 {
-					return true, nil
-				}
+				validUser := subtle.ConstantTimeCompare([]byte(username), []byte(apiUsername)) == 1
+				validPass := isValidKey([]byte(apiPassword), []byte(password))
 
-				return false, nil
+				return validUser && validPass, nil
 			},
 		}),
 	}
@@ -53,4 +52,14 @@ func EchoAPI() *echo.Echo {
 	v1.GET("/feed/:format", V1GetFeed)
 
 	return e
+}
+
+func isValidKey(hashOrKey, key []byte) bool {
+	_, err := bcrypt.Cost(hashOrKey)
+
+	if err == nil {
+		return bcrypt.CompareHashAndPassword(hashOrKey, key) == nil
+	} else {
+		return subtle.ConstantTimeCompare(hashOrKey, key) == 1
+	}
 }
