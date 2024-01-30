@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	e := api.EchoAPI()
+	a := &api.API{}
+	e := a.New()
 
 	e.Use(middleware.Logger())
 	e.GET("/swagger/*", echoSwagger.WrapHandler)

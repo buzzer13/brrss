@@ -6,6 +6,7 @@ import (
 	"gitlab.com/buzzer13/brrss/util"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // V1GetFeed godoc
@@ -36,8 +37,20 @@ func V1GetFeed(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "invalid feed url - "+err.Error())
 	}
 
+	headers := http.Header{}
+
+	for _, reqHeader := range ctx.Request().URL.Query()["req-headers"] {
+		hdr := strings.SplitN(reqHeader, ":", 2)
+
+		if len(hdr) != 2 {
+			return echo.NewHTTPError(http.StatusBadRequest, "invalid header - "+reqHeader)
+		}
+
+		headers.Set(strings.TrimSpace(hdr[0]), strings.TrimSpace(hdr[1]))
+	}
+
 	res, err := util.Fetch("GET", feedURL.String(), &util.FetchOptions{
-		Headers: ctx.Request().URL.Query()["req-headers"],
+		Header: headers,
 	})
 
 	if err != nil {

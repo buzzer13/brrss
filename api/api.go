@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"golang.org/x/crypto/bcrypt"
 	"os"
+	"sync"
 )
 
 //	@title						BrRSS
@@ -16,7 +17,14 @@ import (
 //	@in							query
 //	@name						api-key
 
-func EchoAPI() *echo.Echo {
+type API struct {
+	once sync.Once
+	Echo *echo.Echo
+}
+
+type SetupFunc func(api *API)
+
+func (a *API) New() *echo.Echo {
 	e := echo.New()
 	e.HideBanner = true
 
@@ -54,6 +62,15 @@ func EchoAPI() *echo.Echo {
 	return e
 }
 
+func (a *API) NewOnce(setup SetupFunc) *echo.Echo {
+	a.once.Do(func() {
+		a.Echo = a.New()
+		setup(a)
+	})
+
+	return a.Echo
+}
+
 func isValidKey(hashOrKey, key []byte) bool {
 	_, err := bcrypt.Cost(hashOrKey)
 
@@ -62,4 +79,9 @@ func isValidKey(hashOrKey, key []byte) bool {
 	} else {
 		return subtle.ConstantTimeCompare(hashOrKey, key) == 1
 	}
+}
+
+// EchoAPI Deprecated interfaces. Will be removed in v2.0
+func EchoAPI() *echo.Echo {
+	return (&API{}).New()
 }
