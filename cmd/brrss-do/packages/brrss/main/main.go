@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+var a = api.API{}
+
 func Main(evm do.FuncEventMap) (do.FuncResponseMap, error) {
 	res := do.FuncResponseWriter{}
 	evt, err := evm.Event()
@@ -27,8 +29,10 @@ func Main(evm do.FuncEventMap) (do.FuncResponseMap, error) {
 		}).Map(), err
 	}
 
-	e := api.EchoAPI()
-	e.Use(middleware.Logger())
+	e := a.NewOnce(func(a *api.API) {
+		a.Echo.Use(middleware.Logger())
+	})
+
 	e.ServeHTTP(&res, req)
 
 	return res.GetFuncResponse().Map(), nil
