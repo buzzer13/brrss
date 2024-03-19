@@ -15,7 +15,7 @@ func Main(evm do.FuncEventMap) (do.FuncResponseMap, error) {
 
 	if err != nil {
 		return (&do.FuncResponse{
-			Body:       "parse event error - " + err.Error(),
+			Body:       "event parse error - " + err.Error(),
 			StatusCode: http.StatusInternalServerError,
 		}).Map(), err
 	}
@@ -24,7 +24,7 @@ func Main(evm do.FuncEventMap) (do.FuncResponseMap, error) {
 
 	if err != nil {
 		return (&do.FuncResponse{
-			Body:       "parse request error - " + err.Error(),
+			Body:       "request parse error - " + err.Error(),
 			StatusCode: http.StatusBadRequest,
 		}).Map(), err
 	}

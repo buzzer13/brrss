@@ -152,11 +152,7 @@ func SelectText(item *goquery.Selection, selKind SelKind, selCustom string, opti
 				articleURL, err := url.Parse(result)
 
 				if err == nil {
-					newURL := options.BaseURL
-					newURL.Path = articleURL.Path
-					newURL.RawQuery = articleURL.RawQuery
-
-					result = newURL.String()
+					result = options.BaseURL.ResolveReference(articleURL).String()
 				}
 			case "time:1":
 				dt, err := time.Parse(args[1], result)

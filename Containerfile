@@ -6,7 +6,7 @@ COPY go.mod go.sum /app/
 RUN go mod download
 
 COPY . /app/
-RUN CGO_ENABLED=0 GOOS=linux go build -o brrss cmd/brrss-server/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o brrss cmd/brrss-server/main.go
 
 FROM alpine:3.19
 
