@@ -145,7 +145,7 @@ func SelectText(item *goquery.Selection, selKind SelKind, selCustom string, opti
 			case "attr:2":
 				result = selItem.AttrOr(args[1], args[2])
 			case "text:0":
-				result = selItem.Text()
+				result = strings.TrimSpace(selItem.Text())
 
 			// Text processing actions
 			case "link:0":

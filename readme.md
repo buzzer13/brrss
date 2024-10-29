@@ -15,7 +15,7 @@ HTML-to-RSS bridge that can be used as a serverless function or run as a server.
 
 ## Container
 
-1. Pull and run `registry.gitlab.com/buzzer13/brrss:<tag>` image (tag can be either `latest`, or a specific version like `v1.0.0`).
+1. Pull and run `registry.gitlab.com/buzzer13/brrss:latest` image (tag can be either `latest`, or a specific version like `v1.0.0`).
     - Command: `docker run --name=brrss -it "registry.gitlab.com/buzzer13/brrss:latest"`
     - Server doesn't enable an authentication by default, so you may want to check [configuration](#configuration) section.
 
