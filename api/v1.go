@@ -1,9 +1,9 @@
 package api
 
 import (
+	"github.com/buzzer13/brrss"
+	"github.com/buzzer13/brrss/util"
 	"github.com/labstack/echo/v4"
-	"gitlab.com/buzzer13/brrss"
-	"gitlab.com/buzzer13/brrss/util"
 	"net/http"
 	"net/url"
 	"strings"

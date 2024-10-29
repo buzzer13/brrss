@@ -1,14 +1,14 @@
-module gitlab.com/buzzer13/brrss
+module github.com/buzzer13/brrss
 
 go 1.21
 
 require (
 	github.com/PuerkitoBio/goquery v1.9.3
+	github.com/buzzer13/gosls v1.1.0
 	github.com/gorilla/feeds v1.2.0
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/swaggo/echo-swagger v1.4.1
 	github.com/swaggo/swag v1.16.2
-	gitlab.com/buzzer13/gosls v1.0.0
 	golang.org/x/crypto v0.28.0
 )
 

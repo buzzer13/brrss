@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/buzzer13/brrss/api"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/swaggo/echo-swagger"
-	"gitlab.com/buzzer13/brrss/api"
 
-	_ "gitlab.com/buzzer13/brrss/docs"
+	_ "github.com/buzzer13/brrss/docs"
 )
 
 func main() {

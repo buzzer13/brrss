@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/buzzer13/brrss/api"
+	"github.com/buzzer13/gosls/do"
 	"github.com/labstack/echo/v4/middleware"
-	"gitlab.com/buzzer13/brrss/api"
-	"gitlab.com/buzzer13/gosls/do"
 	"net/http"
 )
 
