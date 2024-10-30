@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "master"
+      - "main"
     tags:
       - "v*"
   pull_request:
     branches:
-      - "master"
+      - "main"
 
 env:
   REGISTRY: ghcr.io
@@ -40,6 +40,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
       
       - name: Login to registry
         if: github.event_name != 'pull_request'
