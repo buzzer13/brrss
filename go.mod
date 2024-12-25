@@ -1,9 +1,10 @@
 module github.com/buzzer13/brrss
 
 go 1.21
+toolchain go1.23.2
 
 require (
-	github.com/PuerkitoBio/goquery v1.9.3
+	github.com/PuerkitoBio/goquery v1.10.0
 	github.com/buzzer13/gosls v1.1.0
 	github.com/gorilla/feeds v1.2.0
 	github.com/labstack/echo/v4 v4.12.0
